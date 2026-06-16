@@ -61,11 +61,12 @@
         DirCreate("C:\Users\vince\JavaProjects\maven")
 
     script := "$env:PATH += ';C:\Users\vince\scoop\shims'`n"
-    script .= "$fullPath = '" fullPath "'`n"
     script .= "$project = '" project "'`n"
-    script .= "mvn archetype:generate -DgroupId=com.vince -DartifactId=`$project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false -f `"`$fullPath`"`n"
-    script .= "& 'C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.2\bin\idea64.exe' `"`$fullPath`"`n"
-
+    script .= "Set-Location 'C:\Users\vince\JavaProjects\maven'`n"
+    script .= "mvn archetype:generate -DgroupId=com.vince -DartifactId=`$project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false`n"
+    script .= "& 'C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.2\bin\idea64.exe' 'C:\Users\vince\JavaProjects\maven\' + `$project`n"
+    
+    
     if FileExist(psScriptFile)
         FileDelete(psScriptFile)
     FileAppend(script, psScriptFile)
